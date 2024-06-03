@@ -53,7 +53,6 @@ def create_chain(vectorStore):
     retriever,
     chain
   )
-  
   return retrieval_chain
   
 
