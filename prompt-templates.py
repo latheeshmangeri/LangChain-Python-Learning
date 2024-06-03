@@ -31,3 +31,4 @@ chain = prompt | llm
 response = chain.invoke({"input": "Happy"})
 
 print(response.content)
+print(type(response.content))
