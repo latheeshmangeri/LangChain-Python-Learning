@@ -9,7 +9,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores.faiss import FAISS
 from langchain.chains import create_retrieval_chain
-xx
+
 def get_documents_from_web(url):
   loader = WebBaseLoader(url)
   docs = loader.load()
