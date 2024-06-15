@@ -15,7 +15,7 @@ def get_documents_from_web(url):
   docs = loader.load()
   
   splitter = RecursiveCharacterTextSplitter(
-    chunk_size = 200,
+    chunk_size = 400,
     chunk_overlap = 20
   )
   
@@ -47,7 +47,7 @@ def create_chain(vectorStore):
     prompt=prompt
   )
   
-  retriever = vectorStore.as_retriever(search_kwargs={'k':4})
+  retriever = vectorStore.as_retriever(search_kwargs={'k':3})
   
   retrieval_chain = create_retrieval_chain(
     retriever,
@@ -55,15 +55,18 @@ def create_chain(vectorStore):
   )
   return retrieval_chain
 
-  
-
-docs = get_documents_from_web('https://python.langchain.com/v0.1/docs/expression_language/')
-vectorStore = create_vector(docs)
-chain = create_chain(vectorStore)
-
-response = chain.invoke({
-    "input": "What is LCEL?"
+def process_chat():
+  response = chain.invoke({
+    "input": question,
   })
+  return response['answer']
 
-print(response['answer'])
+if __name__ == '__main__':
+  docs = get_documents_from_web('https://python.langchain.com/v0.1/docs/expression_language/')
+  vectorStore = create_vector(docs)
+  chain = create_chain(vectorStore)
+  
+  user_input = input("You: ")
+  response = process_chat(chain,user_input)
+  print("Assisstant: ",response)
 
